@@ -1,7 +1,7 @@
 #include "/usr/local/include/opencv/cv.h"
 #include "/usr/local/include/opencv/highgui.h"
 #include "/usr/local/include/opencv2/core/core.hpp"
-//#include "/usr/local/include/opencv2/highgui/highgui.hpp"
+#include "/usr/local/include/opencv2/highgui/highgui.hpp"
 #include <algorithm>
 #include <dirent.h>
 #include <sys/types.h>
@@ -21,7 +21,7 @@
 #include "/usr/include/cppconn/exception.h"
 #include "/usr/include/cppconn/resultset.h"
 #include "/usr/include/cppconn/statement.h"
-//#include "/usr/local/include/opencv2/core/types_c.h"
+#include "/usr/local/include/opencv2/core/types_c.h"
 //#include <cstddef>
 
 using namespace cv;
