@@ -47,6 +47,7 @@ const char* cascade_name_face = "faceDetect/src/dataTraining/haarcascades/haarca
 /////////////////////////////////////////////////////////////////////////////////
 
 int main() {
+    cout << "Start program" << endl;
     LogDebug("start:", "\n");
     getImageInfo();
     LogDebug("end", "\n\n\n");
