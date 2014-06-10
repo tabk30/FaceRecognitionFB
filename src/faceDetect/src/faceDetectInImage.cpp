@@ -21,7 +21,7 @@
 #include "/usr/include/cppconn/exception.h"
 #include "/usr/include/cppconn/resultset.h"
 #include "/usr/include/cppconn/statement.h"
-#include "/usr/local/include/opencv2/core/types_c.h"
+//#include "/usr/local/include/opencv2/core/types_c.h"
 //#include <cstddef>
 
 using namespace cv;
