@@ -1,5 +1,5 @@
-#include "/usr/local/include/opencv/cv.h"
-#include "/usr/local/include/opencv/highgui.h"
+//#include "/usr/local/include/opencv/cv.h"
+//#include "/usr/local/include/opencv/highgui.h"
 #include "/usr/local/include/opencv2/core/core.hpp"
 #include "/usr/local/include/opencv2/highgui/highgui.hpp"
 #include <algorithm>
@@ -49,7 +49,7 @@ const char* cascade_name_face = "faceDetect/src/dataTraining/haarcascades/haarca
 int main() {
     cout << "Start program" << endl;
     LogDebug("start:", "\n");
-    getImageInfo();
+    //getImageInfo();
     LogDebug("end", "\n\n\n");
     return 0;
 }
