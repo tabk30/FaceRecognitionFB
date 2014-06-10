@@ -49,7 +49,7 @@ const char* cascade_name_face = "faceDetect/src/dataTraining/haarcascades/haarca
 int main() {
     cout << "Start program" << endl;
     LogDebug("start:", "\n");
-    //getImageInfo();
+    getImageInfo();
     LogDebug("end", "\n\n\n");
     return 0;
 }
@@ -232,7 +232,7 @@ void LogDebug(std::string description, std::string content) {
         myfile << description;
         myfile << ": ";
         myfile << content;
-        myfile << ". \n";
+        myfile << " \n";
         myfile.close();
     } else cout << "Unable to open file" << endl;
 }
