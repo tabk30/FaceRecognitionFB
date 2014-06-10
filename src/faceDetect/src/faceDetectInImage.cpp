@@ -158,8 +158,8 @@ void saveImageFace(IplImage* src, std::string path) {
     char tab2[1024];
     strcpy(tab2, path.c_str());
     Mat origin(src);
-    cv::Mat gs_rgb(origin.rows, origin.cols, CV_8UC1);
-    cv::cvtColor(origin, gs_rgb, CV_RGB2GRAY);
+    Mat gs_rgb(origin.rows, origin.cols, CV_8UC1);
+    cvtColor(origin, gs_rgb, CV_RGB2GRAY);
     Mat test = tan_triggs_preprocessing(gs_rgb);
     imwrite(tab2, test);
 }
