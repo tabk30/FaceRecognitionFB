@@ -227,12 +227,12 @@ std::string savePath(std::string pid, std::string object) {
 
 void LogDebug(std::string description, std::string content) {
     
-    ofstream myfile("src/faceDetect/Debug/log.txt", std::ios::app);
+    ofstream myfile("faceDetect/Debug/log.txt", std::ios::app);
     if (myfile.is_open()) {
         myfile << description;
         myfile << ": ";
         myfile << content;
         myfile << ". \n";
         myfile.close();
-    } else cout << "Unable to open file";
+    } else cout << "Unable to open file" << endl;
 }
