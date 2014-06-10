@@ -1,7 +1,7 @@
-//#include "/usr/local/include/opencv/cv.h"
-//#include "/usr/local/include/opencv/highgui.h"
+#include "/usr/local/include/opencv/cv.h"
+#include "/usr/local/include/opencv/highgui.h"
 #include "/usr/local/include/opencv2/core/core.hpp"
-#include "/usr/local/include/opencv2/highgui/highgui.hpp"
+//#include "/usr/local/include/opencv2/highgui/highgui.hpp"
 #include <algorithm>
 #include <dirent.h>
 #include <sys/types.h>
