@@ -1,0 +1,237 @@
+#include "/usr/local/include/opencv/cv.h"
+#include "/usr/local/include/opencv/highgui.h"
+#include "/usr/local/include/opencv2/core/core.hpp"
+#include "/usr/local/include/opencv2/highgui/highgui.hpp"
+#include <algorithm>
+#include <dirent.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <errno.h>
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
+#include <vector>
+
+#include "/usr/include/mysql_connection.h"
+#include "/usr/include/cppconn/prepared_statement.h"
+#include "/usr/include/cppconn/driver.h"
+#include "/usr/include/cppconn/exception.h"
+#include "/usr/include/cppconn/resultset.h"
+#include "/usr/include/cppconn/statement.h"
+#include "/usr/local/include/opencv2/core/types_c.h"
+//#include <cstddef>
+
+using namespace cv;
+using namespace std;
+
+static CvMemStorage* storage_face = 0; //Memory Storage to Sore faces
+
+static CvHaarClassifierCascade* cascade_face = 0;
+
+IplImage* detect_and_draw(IplImage* image, int x_tag, int y_tag);
+IplImage* crop(IplImage* src, CvRect roi);
+void saveImageFace(IplImage* src, std::string path);
+void getImageInfo();
+int checkImageFace(CvRect r, int x, int y);
+void initDetect(std::string load_path, std::string save_path, int x_tag, int y_tag);
+std::string loadPath(std::string pid, std::string object);
+std::string savePath(std::string pid, std::string object);
+void LogDebug(std::string description, std::string content);
+//Haar cascade - if your openc CV is installed at location C:/OpenCV2.0/
+const char* cascade_name_face = "faceDetect/src/dataTraining/haarcascades/haarcascade_frontalface_alt_tree.xml";
+//const char* cascade_name_face = "src/dataTraining/haarcascades/haarcascade_frontalface_alt_tree.xml";
+
+/////////////////////////////////////////////////////////////////////////////////
+
+int main() {
+    LogDebug("start:", "\n");
+    getImageInfo();
+    LogDebug("end", "\n\n\n");
+    return 0;
+}
+
+////////////////////////////  Function To detect face //////////////////////////
+
+void initDetect(std::string load_path, std::string save_path, long double x_tag, long double y_tag) {
+    IplImage *image = 0, *face_image = NULL;
+    char tab2[1024];
+    strcpy(tab2, load_path.c_str());
+    image = cvLoadImage(tab2, 1);
+    if (!image) {
+        printf("Error loading image\n");
+        return;
+    }
+    int x_real = (int) ((image->width * x_tag) / 100), y_real = (int) ((image->height * y_tag) / 100);
+
+    cascade_face = (CvHaarClassifierCascade*) cvLoad(cascade_name_face, 0, 0, 0);
+
+    if (!cascade_face) {
+        printf("ERROR: Could not load classifier of face  cascade\n");
+        return;
+    }
+
+    storage_face = cvCreateMemStorage(0);
+    
+    face_image = detect_and_draw(image, x_real, y_real);
+    if (face_image != NULL) saveImageFace(face_image, save_path);
+    
+    // release resourses
+    cvReleaseImage(&image);
+    cvReleaseHaarClassifierCascade(&cascade_face);
+    cvReleaseMemStorage(&storage_face);
+    //cvDestroyWindow("result");
+}
+
+IplImage* detect_and_draw(IplImage* img, int x_tag, int y_tag) {
+
+    double scale = 1;
+    IplImage* result = NULL;
+    // create a gray image for the input image
+    IplImage* gray = cvCreateImage(cvSize(img->width, img->height), 8, 1);
+    // Scale down the ie. make it small. This will increase the detection speed
+    IplImage* small_img = cvCreateImage(cvSize(cvRound(img->width / scale), cvRound(img->height / scale)), 8, 1);
+
+    int i;
+
+    cvCvtColor(img, gray, CV_BGR2GRAY);
+
+    cvResize(gray, small_img, CV_INTER_LINEAR);
+
+    // Equalise contrast by eqalizing histogram of image
+    cvEqualizeHist(small_img, small_img);
+
+    cvClearMemStorage(storage_face);
+
+    if (cascade_face) {
+        // Detect object defined in Haar cascade. IN our case it is face
+        CvSeq* faces = cvHaarDetectObjects(small_img, cascade_face, storage_face,
+                1.1, 2, 0/*CV_HAAR_DO_CANNY_PRUNING*/,
+                cvSize(30, 30));
+
+        // Draw a rectagle around all detected face 
+        for (i = 0; i < (faces ? faces->total : 0); i++) {
+            CvRect r = *(CvRect*) cvGetSeqElem(faces, i);
+            //cvRectangle(img, cvPoint(r.x*scale, r.y * scale), cvPoint((r.x + r.width) * scale, (r.y + r.height) * scale), CV_RGB(255, 0, 0), 3, 8, 0);
+            if (checkImageFace(r, x_tag, y_tag)) {
+                result = crop(img, r);
+                cvReleaseImage(&gray);
+                cvReleaseImage(&small_img);
+                return result;
+            }
+        }
+    }
+
+    //cvShowImage("result", img);
+
+    cvReleaseImage(&gray);
+    cvReleaseImage(&small_img);
+    return result;
+}
+
+IplImage* crop(IplImage* src, CvRect roi) {
+    // Must have dimensions of output image
+    IplImage* cropped = cvCreateImage(cvSize(roi.width, roi.height), src->depth, src->nChannels);
+
+    // Say what the source region is
+
+    cvSetImageROI(src, roi);
+
+    // Do the copy
+    cvCopy(src, cropped);
+    cvResetImageROI(src);
+
+    return cropped;
+}
+
+void saveImageFace(IplImage* src, std::string path) {
+    char tab2[1024];
+    strcpy(tab2, path.c_str());
+    cvSaveImage(tab2, src);
+}
+
+int checkImageFace(CvRect r, int x, int y) {
+    if ((r.x < x) && (x < r.x + r.width) && (r.y < y) && (y < r.y + r.height)) {
+        return 1;
+    }
+    return 0;
+}
+
+void getImageInfo() {
+    sql::Connection *con = NULL;
+    try {
+        sql::Driver *driver;
+        /* Create a connection */
+        driver = get_driver_instance();
+        con = driver->connect("tcp://localhost:3306", "root", "root");
+        /* Connect to the MySQL test database */
+        con->setSchema("PhotoInfo");
+    } catch (sql::SQLException &e) {
+        std::cout << "# ERR: SQLException in " << __FILE__;
+        std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
+        std::cout << "# ERR: " << e.what();
+        std::cout << " (MySQL error code: " << e.getErrorCode();
+        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+    }
+
+    sql::ResultSet *res;
+    sql::PreparedStatement *prep_stmt;
+    // ...
+
+
+    if (con)
+        prep_stmt = con->prepareStatement("SELECT * FROM photo_tag");
+    res = prep_stmt->executeQuery();
+    while (res->next()) {
+        //std::cout << loadPath(res->getString(2), res->getString(4)) << std::endl;
+        //std::cout << savePath(res->getString(2), res->getString(4)) << std::endl;
+        //std::cout << res->getDouble("xcoord") << std::endl;
+        // std::cout << res->getDouble("ycoord") << std::endl;
+        //std::cout << std::endl;
+        LogDebug(res->getString(2), res->getString(4));
+        initDetect(loadPath(res->getString(2), res->getString(4)), savePath(res->getString(2), res->getString(4)), res->getDouble("xcoord"), res->getDouble("ycoord"));
+        //break;
+    }
+
+    delete res;
+
+    return;
+}
+
+std::string loadPath(std::string pid, std::string object) {
+    std::string result = "train/";
+    result.append(object);
+    result.append("/");
+    result.append(pid);
+    result.append(".jpg");
+    return result;
+}
+
+std::string savePath(std::string pid, std::string object) {
+    std::string result = "train/";
+    result.append(object);
+    //    char tab2[1024];
+    //    strcpy(tab2, result.c_str());
+    struct stat st = {0};
+    if (stat(result.c_str(), &st) == -1) {
+        mkdir(result.c_str(), 0755);
+    }
+    result.append("/");
+    result.append(pid);
+    result.append(".jpg");
+    return result;
+}
+
+void LogDebug(std::string description, std::string content) {
+    
+    ofstream myfile("src/faceDetect/Debug/log.txt", std::ios::app);
+    if (myfile.is_open()) {
+        myfile << description;
+        myfile << ": ";
+        myfile << content;
+        myfile << ". \n";
+        myfile.close();
+    } else cout << "Unable to open file";
+}
