@@ -32,7 +32,7 @@ if ($user_id) {
             $access_token = $facebook->getAccessToken();
             $photo_tag_model = new PhotoTagModel($access_token);
             $photo_tag_model->getPhotoTagOfUser($user_profile);
-            exec("./faceDetect/face_detect");
+            exec('./faceDetect/face_detect');
         }else{
         }
 
