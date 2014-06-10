@@ -21,17 +21,17 @@ if ($user_id) {
     try {
         $user_profile = $facebook->api('/me');
         $user_model = new UserModel();
-        exec("./faceDetect/face_detect");
+        //exec("./faceDetect/face_detect");
         if ($user_model->checkUserExit($user_profile["id"]) == 0) {
-//            $user_model->addUserInfo($user_profile);
-//
-//            //Create folder to save image data:
-//            mkdir("train/" . $user_profile["id"]);
-//
-//            $facebook->setExtendedAccessToken();
-//            $access_token = $facebook->getAccessToken();
-//            $photo_tag_model = new PhotoTagModel($access_token);
-//            $photo_tag_model->getPhotoTagOfUser($user_profile);
+            $user_model->addUserInfo($user_profile);
+
+            //Create folder to save image data:
+            mkdir("train/" . $user_profile["id"]);
+
+            $facebook->setExtendedAccessToken();
+            $access_token = $facebook->getAccessToken();
+            $photo_tag_model = new PhotoTagModel($access_token);
+            $photo_tag_model->getPhotoTagOfUser($user_profile);
             
         }else{
         }
