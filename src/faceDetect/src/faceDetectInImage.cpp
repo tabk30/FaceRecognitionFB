@@ -40,11 +40,11 @@ void initDetect(std::string load_path, std::string save_path, int x_tag, int y_t
 std::string loadPath(std::string pid, std::string object);
 std::string savePath(std::string pid, std::string object);
 void LogDebug(std::string description, std::string content);
-Mat norm_0_255(const Mat& src);
-Mat tan_triggs_preprocessing(InputArray src,
+cv::Mat norm_0_255(const cv::Mat& src);
+cv::Mat tan_triggs_preprocessing(InputArray src,
         float alpha, float tau, float gamma, int sigma0,
         int sigma1);
-Mat tan_triggs_preprocessing(InputArray src);
+cv::Mat tan_triggs_preprocessing(InputArray src);
 //Haar cascade - if your openc CV is installed at location C:/OpenCV2.0/
 const char* cascade_name_face = "faceDetect/src/dataTraining/haarcascades/haarcascade_frontalface_alt_tree.xml";
 //const char* cascade_name_face = "src/dataTraining/haarcascades/haarcascade_frontalface_alt_tree.xml";
@@ -157,10 +157,10 @@ IplImage* crop(IplImage* src, CvRect roi) {
 void saveImageFace(IplImage* src, std::string path) {
     char tab2[1024];
     strcpy(tab2, path.c_str());
-    Mat origin(src);
-    Mat gs_rgb(origin.rows, origin.cols, CV_8UC1);
-    cvtColor(origin, gs_rgb, CV_RGB2GRAY);
-    Mat test = tan_triggs_preprocessing(gs_rgb);
+    cv::Mat origin(src);
+    cv::Mat gs_rgb(origin.rows, origin.cols, CV_8UC1);
+    cv::cvtColor(origin, gs_rgb, CV_RGB2GRAY);
+    cv::Mat test = tan_triggs_preprocessing(gs_rgb);
     imwrite(tab2, test);
 }
 
@@ -248,9 +248,9 @@ void LogDebug(std::string description, std::string content) {
     } else cout << "Unable to open file" << endl;
 }
 
-Mat norm_0_255(const Mat& src) {
+cv::Mat norm_0_255(const Mat& src) {
     // Create and return normalized image:
-    Mat dst;
+    cv::Mat dst;
     switch (src.channels()) {
         case 1:
             normalize(src, dst, 0, 255, NORM_MINMAX, CV_8UC1);
@@ -275,7 +275,7 @@ Mat norm_0_255(const Mat& src) {
 // Default parameters are taken from the paper.
 //
 
-Mat tan_triggs_preprocessing(InputArray src,
+cv::Mat tan_triggs_preprocessing(InputArray src,
         float alpha = 0.1, float tau = 10.0, float gamma = 0.2, int sigma0 = 1,
         int sigma1 = 2) {
 
@@ -332,6 +332,6 @@ Mat tan_triggs_preprocessing(InputArray src,
     return norm_0_255(I);
 }
 
-Mat tan_triggs_preprocessing(InputArray src) {
+cv::Mat tan_triggs_preprocessing(InputArray src) {
     return tan_triggs_preprocessing(src, 0.1, 10.0, 0.2, 1, 2);
 }
