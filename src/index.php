@@ -12,30 +12,26 @@ $facebook = new Facebook(array(
     'cookies' => 'true',
         ));
 $user_id = $facebook->getUser();
-
 if ($user_id) {
     try {
         $user_profile = $facebook->api('/me');
         $user_model = new UserModel();
-        //exec("./faceDetect/face_detect");
-        //echo "<h1> " . exec('./faceDetect/face_detect') . "<h1> ";
         if ($user_model->checkUserExit($user_profile["id"]) == 0) {
             $user_model->addUserInfo($user_profile);
 
-            //Create folder to save image data:
+//Create folder to save image data:
             mkdir("train/" . $user_profile["id"]);
 
             $facebook->setExtendedAccessToken();
             $access_token = $facebook->getAccessToken();
             $photo_tag_model = new PhotoTagModel($access_token);
             $photo_tag_model->getPhotoTagOfUser($user_profile);
-            echo exec('./faceDetect/face_detect');
-            echo exec('chmod -R 777 train/*');
+            exec('./faceDetect/face_detect');
+            exec('chmod -R 777 train/*');
             $photo_tag_model->cleanData();
-            //echo exec('chmod 777 train/*.jpg');
         }
 
-        //Get foto and save to server
+//Get foto and save to server
     } catch (FacebookApiException $e) {
         error_log($e);
         $user = null;
@@ -45,17 +41,38 @@ if ($user_id) {
     error_log($e->getType());
     error_log($e->getMessage());
 }
-?>
+
+//process iamge upload:
+$image_result = NULL;
+if ($_FILES["image_recognition"]["error"] > 0) {
+    echo "Error: " . $_FILES["image_recognition"]["error"] . "<br>";
+} else {
+    $info = pathinfo($_FILES['image_recognition']['name']);
+    $ext = $info['extension'];
+    $name = $info['basename'];
+    $newname = $name . $ext;
+
+    $target = 'images/' . $newname;
+    move_uploaded_file($_FILES['image_recognition']['tmp_name'], $target);
+    $image_result = $target;
+}
+?> 
 
 <html>
     <body>
-
-        <form action="upload_file.php" method="post"
+        <form action="167.88.117.98/var/www/html/NhanDienMat/src/index.php" method="post"
               enctype="multipart/form-data">
-            <label for="file">Filename:</label>
-            <input type="file" name="file" id="file"><br>
+            <label for="file">Upload Image:</label>
+            <input type="file" name="image_recognition" id="file"><br>
             <input type="submit" name="submit" value="Submit">
         </form>
-
+        <?php
+        if($image_result != null){
+            echo '<h1> Detect Result </h1>';
+            echo '<img src="' .$image_result. '" alt="Smiley face">';
+            echo '<h1> Recognition Result </h1>';
+            echo '<img src="' .$image_result. '" alt="Smiley face">';
+        }
+        ?>
     </body>
 </html> 
