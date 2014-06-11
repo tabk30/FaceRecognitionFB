@@ -27,11 +27,9 @@
 #include "../lib/PathGenerate.h"
 #include "../lib/ImageData.h"   
 #include "../lib/MyPCA.h"
+
 using namespace cv;
 using namespace std;
-
-extern int g_nValue;
-extern vector<string> result_test;
 
 int main(int argc, const char *argv[]) {
     MyPCA * pca_test = new MyPCA();

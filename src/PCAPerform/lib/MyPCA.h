@@ -12,8 +12,8 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
-#include "../lib/PathGenerate.h"
-#include "../lib/ImageData.h"
+#include "PathGenerate.h"
+#include "ImageData.h"
 
 using namespace std;
 using namespace cv;
