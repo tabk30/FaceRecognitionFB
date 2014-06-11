@@ -14,7 +14,6 @@
 #include <iostream>
 #include "../lib/PathGenerate.h"
 #include "../lib/ImageData.h"
-#include "../lib/FaceDetect.h"
 
 using namespace std;
 using namespace cv;
