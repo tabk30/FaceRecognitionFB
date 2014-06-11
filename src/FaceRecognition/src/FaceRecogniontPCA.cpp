@@ -87,10 +87,9 @@ string FaceRecogniontPCA::recognitionAFace(Mat origin) {
 void FaceRecogniontPCA::LoadData() {
     //Mat error(0, 0, DataType<float>::type), data;
 
-    FileStorage fs("import/PCA/data/data.xml", FileStorage::READ);
-    //FileStorage fs("data/data.xml", FileStorage::READ);
+    FileStorage fs("data/data.xml", FileStorage::READ);
     if (!fs.isOpened()) {
-        cerr << "Failed to open " << "import/PCA/data/data.xml" << endl;
+        cerr << "Failed to open " << "data/data.xml" << endl;
         return;
     }
     //Mat eigenvalues, eigenvectors, mean;

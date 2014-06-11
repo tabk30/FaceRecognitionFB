@@ -7,9 +7,7 @@ FaceDetect::FaceDetect() {
     //this->face_list = new vector<IplImage>();
     storage_face = 0;
     cascade_face = 0;
-    cascade_name_face = "import/PCA/src/detect/dataTraining/haarcascades/haarcascade_frontalface_alt_tree.xml";
-    //cascade_name_face = "src/detect/dataTraining/haarcascades/haarcascade_frontalface_alt_tree.xml";
-
+    cascade_name_face = "FaceRecognition/src/detect/dataTraining/haarcascades/haarcascade_frontalface_alt_tree.xml";
 }
 
 FaceDetect::FaceDetect(const FaceDetect& orig) {
@@ -100,7 +98,6 @@ void FaceDetect::detect_and_draw(IplImage* img) {
 }
 
 IplImage* FaceDetect::tagFaceRecognition(vector<int> tag_id) {
-    //cout << "tag number: " << this->faces->total << endl;
     double scale = 1;
     IplImage* face_recognition = cvCreateImage(cvGetSize(this->image),
             this->image->depth,

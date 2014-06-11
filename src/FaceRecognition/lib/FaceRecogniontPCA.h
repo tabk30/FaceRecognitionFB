@@ -12,7 +12,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
-#include "../lib/FaceDetect.h"
+#include "FaceDetect.h"
 
 using namespace std;
 using namespace cv;
@@ -30,7 +30,7 @@ public:
     string getLabel(string label);
     Mat norm_0_255(const Mat& src);
     Mat tan_triggs_preprocessing(InputArray src,
-            float alpha, float tau , float gamma, int sigma0,
+            float alpha, float tau, float gamma, int sigma0,
             int sigma1);
     Mat tan_triggs_preprocessing(Mat src);
     int checkExit(vector<string> result, string label_temp);
@@ -43,7 +43,6 @@ private:
     double distance;
     IplImage * face_detect;
     IplImage * face_recognition;
-    
     //data save:
     string file_name;
 };

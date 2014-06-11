@@ -8,10 +8,10 @@
 #ifndef __MAINFACEDETECT_H__
 #define	__MAINFACEDETECT_H__
 
-#include "cv.h"
-#include "highgui.h"
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
+#include "/usr/local/include/opencv/cv.h"
+#include "/usr/local/include/opencv/highgui.h"
+#include "/usr/local/include/opencv2/core/core.hpp"
+#include "/usr/local/include/opencv2/highgui/highgui.hpp"
 #include <iostream>
 #include <algorithm>
 #include <dirent.h>
@@ -24,13 +24,6 @@
 #include <stdlib.h>
 #include <string>
 #include <vector>
-
-#include <mysql_connection.h>
-#include <cppconn/prepared_statement.h>
-#include <cppconn/driver.h>
-#include <cppconn/exception.h>
-#include <cppconn/resultset.h>
-#include <cppconn/statement.h>
 #include <opencv2/core/types_c.h>
 
 using namespace std;
