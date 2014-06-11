@@ -24,7 +24,7 @@
 #include "/usr/local/include/opencv2/core/types_c.h"
 //#include <cstddef>
 
-using namespace cv;
+//using namespace cv;
 using namespace std;
 
 static CvMemStorage* storage_face = 0; //Memory Storage to Sore faces
