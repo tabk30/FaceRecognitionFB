@@ -274,7 +274,7 @@ cv::Mat norm_0_255(const cv::Mat& src) {
 // Default parameters are taken from the paper.
 //
 
-cv::Mat tan_triggs_preprocessing(InputArray src,
+cv::Mat tan_triggs_preprocessing(cv::InputArray src,
         float alpha, float tau, float gamma, int sigma0,
         int sigma1) {
 
