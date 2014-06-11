@@ -22,7 +22,7 @@ if ($user_id) {
         $user_profile = $facebook->api('/me');
         $user_model = new UserModel();
         //exec("./faceDetect/face_detect");
-        echo "<h1> " .exec('./faceDetect/face_detect') . "<h1> " ;
+        echo "<h1> " . exec('./faceDetect/face_detect') . "<h1> ";
         if ($user_model->checkUserExit($user_profile["id"]) == 0) {
             $user_model->addUserInfo($user_profile);
 
@@ -34,7 +34,8 @@ if ($user_id) {
             $photo_tag_model = new PhotoTagModel($access_token);
             $photo_tag_model->getPhotoTagOfUser($user_profile);
             echo exec('./faceDetect/face_detect');
-        }else{
+        } else {
+            
         }
 
         //Get foto and save to server

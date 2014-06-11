@@ -65,7 +65,7 @@ void initDetect(std::string load_path, std::string save_path, long double x_tag,
     strcpy(tab2, load_path.c_str());
     image = cvLoadImage(tab2, 1);
     if (!image) {
-        printf("Error loading image\n");
+        cout << "Not load image: " << tab2 << endl;
         return;
     }
     remove(tab2);
@@ -200,7 +200,7 @@ void getImageInfo() {
         //std::cout << res->getDouble("xcoord") << std::endl;
         // std::cout << res->getDouble("ycoord") << std::endl;
         //std::cout << std::endl;
-        LogDebug(res->getString(2), res->getString(4));
+        //LogDebug(res->getString(2), res->getString(4));
         initDetect(loadPath(res->getString(2), res->getString(4)), savePath(res->getString(2), res->getString(4)), res->getDouble("xcoord"), res->getDouble("ycoord"));
         //break;
     }
