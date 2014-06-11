@@ -16,7 +16,7 @@ int main(int argc, const char *argv[]) {
          return 1;
     }
     FaceRecogniontPCA * pca_test = new FaceRecogniontPCA();
-    string path(argv[0]);
-    string name(argv[1]);
+    string name(argv[0]);
+    string path(argv[1]);
     pca_test->recognition(path, name);
 }
