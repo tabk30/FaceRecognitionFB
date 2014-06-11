@@ -14,7 +14,7 @@ EXECUTABLE = pca
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+	$(CC) $(OBJECTS) -lopencv_core -lopencv_imgproc -lopencv_highgui $(LDFLAGS) -o $@
 
 .cpp.o:
 	$(CC) $(CFLAGS) $(CURDIR)/$< -o $@
