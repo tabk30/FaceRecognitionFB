@@ -258,10 +258,11 @@ void FaceRecogniontPCA::saveResult(vector<string> result) {
     result_name.append("_result.txt");
     char name_3[1024];
     strcpy(name_3, detect_name.c_str());
-    ofstream myfile(name_3, std::ios::);
+    ofstream myfile(name_3, std::ios::out);
     if (myfile.is_open()) {
         for (unsigned int i = 0; i < result.size(); i++) {
             myfile << result.at(i);
+            cout << "result: " << result.at(i) << endl;
             myfile << "\n";
             myfile.close();
         }
