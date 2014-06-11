@@ -51,9 +51,9 @@ if ($_FILES["image_recognition"]["error"] > 0) {
     $info = pathinfo($_FILES['image_recognition']['name']);
     $ext = $info['extension'];
     $name = $info['basename'];
-    $newname = $name . $ext;
+    //$newname = $name . $ext;
 
-    $target = 'images/' . $newname;
+    $target = 'images/' . $name;
     move_uploaded_file($_FILES['image_recognition']['tmp_name'], $target);
     exec('./FaceRecognition/recognition');
     $image_detect = 'images/' . $name . '_detection.jpg';
