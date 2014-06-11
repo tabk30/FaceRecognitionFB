@@ -34,7 +34,8 @@ if ($user_id) {
             $photo_tag_model = new PhotoTagModel($access_token);
             $photo_tag_model->getPhotoTagOfUser($user_profile);
             echo exec('./faceDetect/face_detect');
-            echo exec('chmod 777 train/*');
+            echo exec('chmod -R 777 train/*');
+            //echo exec('chmod 777 train/*.jpg');
         } else {
             
         }
