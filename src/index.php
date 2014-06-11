@@ -43,7 +43,8 @@ if ($user_id) {
 }
 
 //process iamge upload:
-$image_result = NULL;
+$image_detect = NULL;
+$image_recognition = NULL;
 if ($_FILES["image_recognition"]["error"] > 0) {
     echo "Error: " . $_FILES["image_recognition"]["error"] . "<br>";
 } else {
@@ -54,7 +55,10 @@ if ($_FILES["image_recognition"]["error"] > 0) {
 
     $target = 'images/' . $newname;
     move_uploaded_file($_FILES['image_recognition']['tmp_name'], $target);
-    $image_result = $target;
+    exec('./FaceRecognition/recognition');
+    $image_detect = 'images/' . $name . '_detection.jpg';
+    $image_recognition = 'images/' . $name . '_recognition.jpg';
+    $result = 'images/' . $name . '_result.txt';
 }
 ?> 
 
@@ -67,11 +71,13 @@ if ($_FILES["image_recognition"]["error"] > 0) {
             <input type="submit" name="submit" value="Submit">
         </form>
         <?php
-        if($image_result != null){
+        if ($image_detect != null) {
             echo '<h1> Detect Result </h1>';
-            echo '<img src="' .$image_result. '" alt="Smiley face">';
+            echo '<img src="' . $image_detect . '" alt="Smiley face">';
+        }
+        if ($iamge_recognition != NULL) {
             echo '<h1> Recognition Result </h1>';
-            echo '<img src="' .$image_result. '" alt="Smiley face">';
+            echo '<img src="' . $image_recognition . '" alt="Smiley face">';
         }
         ?>
     </body>
