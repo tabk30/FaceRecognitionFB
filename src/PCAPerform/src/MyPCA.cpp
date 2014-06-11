@@ -10,7 +10,7 @@
 MyPCA::MyPCA() {
     //load data
     ImageData * image_process = new ImageData(100, 100);
-    PathGenerate * path = new PathGenerate("train", "Info/train.txt");
+    PathGenerate * path = new PathGenerate("train", "PCAPerform/Info/train.txt");
     path->generate();
     delete path;
 
