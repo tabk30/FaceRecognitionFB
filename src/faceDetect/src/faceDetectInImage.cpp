@@ -24,7 +24,7 @@
 #include "/usr/local/include/opencv2/core/types_c.h"
 //#include <cstddef>
 
-//using namespace cv;
+using namespace cv;
 using namespace std;
 
 static CvMemStorage* storage_face = 0; //Memory Storage to Sore faces
@@ -41,10 +41,9 @@ std::string loadPath(std::string pid, std::string object);
 std::string savePath(std::string pid, std::string object);
 void LogDebug(std::string description, std::string content);
 cv::Mat norm_0_255(const cv::Mat& src);
-cv::Mat tan_triggs_preprocessing(InputArray src,
+cv::Mat tan_triggs_preprocessing(cv::InputArray src,
         float alpha, float tau, float gamma, int sigma0,
         int sigma1);
-cv::Mat tan_triggs_preprocessing(InputArray src);
 //Haar cascade - if your openc CV is installed at location C:/OpenCV2.0/
 const char* cascade_name_face = "faceDetect/src/dataTraining/haarcascades/haarcascade_frontalface_alt_tree.xml";
 //const char* cascade_name_face = "src/dataTraining/haarcascades/haarcascade_frontalface_alt_tree.xml";
@@ -160,7 +159,7 @@ void saveImageFace(IplImage* src, std::string path) {
     cv::Mat origin(src);
     cv::Mat gs_rgb(origin.rows, origin.cols, CV_8UC1);
     cv::cvtColor(origin, gs_rgb, CV_RGB2GRAY);
-    cv::Mat test = tan_triggs_preprocessing(gs_rgb);
+    cv::Mat test = tan_triggs_preprocessing(gs_rgb, 0.1, 10.0, 0.2, 1, 2);
     imwrite(tab2, test);
 }
 
@@ -330,8 +329,4 @@ cv::Mat tan_triggs_preprocessing(InputArray src,
         I = tau * I;
     }
     return norm_0_255(I);
-}
-
-cv::Mat tan_triggs_preprocessing(InputArray src) {
-    return tan_triggs_preprocessing(src, 0.1, 10.0, 0.2, 1, 2);
 }
