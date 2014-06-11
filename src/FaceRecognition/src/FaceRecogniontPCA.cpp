@@ -236,7 +236,7 @@ void FaceRecogniontPCA::saveResult(vector<string> result) {
     string detect_name = "images/";
     detect_name.append(this->file_name);
     detect_name.append("_detection.jpg");
-    count << "detect: " << detect_name << endl;
+    cout << "detect: " << detect_name << endl;
     char name_1[1024];
     strcpy(name_1, detect_name.c_str());
     Mat face_detect(this->face_detect);
@@ -246,7 +246,7 @@ void FaceRecogniontPCA::saveResult(vector<string> result) {
     string recogn_name = "images/";
     recogn_name.append(this->file_name);
     recogn_name.append("_recognition.jpg");
-    count << "recogntition: " << recogn_name << endl;
+    cout << "recogntition: " << recogn_name << endl;
     char name_2[1024];
     strcpy(name_2, recogn_name.c_str());
     Mat face_recogn(this->face_recognition);
