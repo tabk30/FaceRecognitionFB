@@ -5,8 +5,8 @@
  * Created on April 11, 2014, 12:25 AM
  */
 
-#ifndef FACEDETECT_H
-#define	FACEDETECT_H
+#ifndef __MAINFACEDETECT_H__
+#define	__MAINFACEDETECT_H__
 
 #include "cv.h"
 #include "highgui.h"

@@ -5,8 +5,8 @@
  * Created on May 10, 2014, 3:42 PM
  */
 
-#ifndef FACERECOGNIONTPCA_H
-#define	FACERECOGNIONTPCA_H
+#ifndef __MAINFACERECOGNIONTPCA_H__
+#define	__MAINFACERECOGNIONTPCA_H__
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
