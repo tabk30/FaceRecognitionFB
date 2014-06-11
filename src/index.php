@@ -1,12 +1,9 @@
 <?php
-
 require_once ('fb/facebook.php');
 require_once ('model/PhotoTagModel.php');
 require_once ('model/UserModel.php');
 
 $fbconfig['appUrl'] = "The full url of your app on Facebook goes here";
-
-echo "<h1>Face Recognition</h1>";
 
 //Create An instance of our Facebook Application .
 $facebook = new Facebook(array(
@@ -17,7 +14,6 @@ $facebook = new Facebook(array(
 $user_id = $facebook->getUser();
 
 if ($user_id) {
-    echo "<h1>User login success</h1>";
     try {
         $user_profile = $facebook->api('/me');
         $user_model = new UserModel();
@@ -37,8 +33,6 @@ if ($user_id) {
             echo exec('chmod -R 777 train/*');
             $photo_tag_model->cleanData();
             //echo exec('chmod 777 train/*.jpg');
-        } else {
-            
         }
 
         //Get foto and save to server
@@ -51,6 +45,17 @@ if ($user_id) {
     error_log($e->getType());
     error_log($e->getMessage());
 }
-
-echo "	<h1>End program</h1>";
 ?>
+
+<html>
+    <body>
+
+        <form action="upload_file.php" method="post"
+              enctype="multipart/form-data">
+            <label for="file">Filename:</label>
+            <input type="file" name="file" id="file"><br>
+            <input type="submit" name="submit" value="Submit">
+        </form>
+
+    </body>
+</html> 
