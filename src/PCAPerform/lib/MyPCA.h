@@ -23,6 +23,7 @@ public:
     MyPCA();
     MyPCA(const MyPCA& orig);
     virtual ~MyPCA();
+    Mat formatImagesForPCA(const vector<Mat> &data);
     void SaveData(Mat eigenvalues, Mat eigenvectors, Mat mean, Mat train_compress,vector<string> label_train);
 private:
 };

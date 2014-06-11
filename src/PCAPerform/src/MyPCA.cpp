@@ -17,7 +17,7 @@ MyPCA::MyPCA() {
     vector<Mat> db;
     vector<string> label_train;
     image_process->loadImage("PCAPerform/Info/train.txt", db, label_train);
-    Mat train = formatImagesForPCA(db);
+    Mat train = this->formatImagesForPCA(db);
     ///////////////////////////////////////////////////////////////////
 
 
@@ -29,8 +29,7 @@ MyPCA::MyPCA() {
         Mat vec = train.row(i), coeffs = train_compress.row(i);
         pca.project(vec, coeffs);
     }
-    this->data = train_compress;
-    this->SaveData(this->pca.eigenvalues, this->pca.eigenvectors, this->pca.mean);
+    this->SaveData(pca.eigenvalues, pca.eigenvectors, pca.mean, train_compress, label_train);
 }
 
 MyPCA::MyPCA(const MyPCA& orig) {
