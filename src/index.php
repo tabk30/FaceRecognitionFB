@@ -72,11 +72,11 @@ if ($_FILES["image_recognition"]["error"] > 0) {
             <input type="submit" name="submit" value="Submit">
         </form>
         <?php
-        if ($image_detect != null) {
+        if ($target != null) {
             echo '<h1> Detect Result </h1>';
             echo '<img src="' . $target . '" alt="Smiley face">';
         }
-        if ($iamge_recognition != NULL) {
+        if ($target != NULL) {
             echo '<h1> Recognition Result </h1>';
             echo '<img src="' . $target . '" alt="Smiley face">';
         }
