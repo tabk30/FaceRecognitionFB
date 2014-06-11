@@ -6,7 +6,7 @@ CFLAGS 	= -c -Wall -O3  -I ./include/
 CFLAGS 		+= $(shell pkg-config opencv --cflags)
 LDFLAGS 	+= $(shell pkg-config opencv --libs)
 
-SOURCES		= $(wildcard ./src/PCAPerform.cpp ./src/PathGenerate.cpp ./src/ImageData.cpp ./src/PCA.cpp )
+SOURCES		= $(wildcard ./src/PCAPerform.cpp ./src/PathGenerate.cpp ./src/ImageData.cpp )
 OBJECTS		= $(SOURCES:.cpp=.o)
 
 EXECUTABLE = pca
