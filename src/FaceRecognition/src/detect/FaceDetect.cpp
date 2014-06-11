@@ -54,7 +54,7 @@ void FaceDetect::initDetect(std::string load_path) {
 void FaceDetect::detect_and_draw(IplImage* img) {
 
     double scale = 1;
-    IplImage* result = NULL, * copy = img;
+    IplImage* result = NULL;
     IplImage* face_tag = cvCreateImage(cvGetSize(img),
             img->depth,
             img->nChannels);
@@ -147,7 +147,7 @@ string FaceDetect::convertInt(int number) {
         temp += number % 10 + 48;
         number /= 10;
     }
-    for (int i = 0; i < temp.length(); i++)
+    for (unsigned int i = 0; i < temp.length(); i++)
         returnvalue += temp[temp.length() - i - 1];
     return returnvalue;
 }
