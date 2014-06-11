@@ -247,15 +247,15 @@ void LogDebug(std::string description, std::string content) {
     } else cout << "Unable to open file" << endl;
 }
 
-cv::Mat norm_0_255(const Mat& src) {
+cv::Mat norm_0_255(const cv::Mat& src) {
     // Create and return normalized image:
     cv::Mat dst;
     switch (src.channels()) {
         case 1:
-            normalize(src, dst, 0, 255, NORM_MINMAX, CV_8UC1);
+            normalize(src, dst, 0, 255, cv::NORM_MINMAX, CV_8UC1);
             break;
         case 3:
-            normalize(src, dst, 0, 255, NORM_MINMAX, CV_8UC3);
+            normalize(src, dst, 0, 255, cv::NORM_MINMAX, CV_8UC3);
             break;
         default:
             src.copyTo(dst);
@@ -275,8 +275,8 @@ cv::Mat norm_0_255(const Mat& src) {
 //
 
 cv::Mat tan_triggs_preprocessing(InputArray src,
-        float alpha = 0.1, float tau = 10.0, float gamma = 0.2, int sigma0 = 1,
-        int sigma1 = 2) {
+        float alpha, float tau, float gamma, int sigma0,
+        int sigma1) {
 
     // Convert to floating point:
     Mat X = src.getMat();
