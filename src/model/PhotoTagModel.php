@@ -91,6 +91,11 @@ class PhotoTagModel {
         }
     }
 
+    public function cleanData() {
+        $sql = "DELETE FROM photo_tag WHERE 1";
+        mysql_query($sql, $this->con);
+    }
+
     public function checkExitPosision($pid) {
         $result = mysql_query("SELECT * FROM photo_tag WHERE pid='" . $pid . "'", $this->con);
         while ($row = mysql_fetch_array($result)) {
@@ -98,4 +103,5 @@ class PhotoTagModel {
         }
         return 0;
     }
+
 }

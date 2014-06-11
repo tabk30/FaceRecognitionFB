@@ -195,12 +195,6 @@ void getImageInfo() {
         prep_stmt = con->prepareStatement("SELECT * FROM photo_tag");
     res = prep_stmt->executeQuery();
     while (res->next()) {
-        //std::cout << loadPath(res->getString(2), res->getString(4)) << std::endl;
-        //std::cout << savePath(res->getString(2), res->getString(4)) << std::endl;
-        //std::cout << res->getDouble("xcoord") << std::endl;
-        // std::cout << res->getDouble("ycoord") << std::endl;
-        //std::cout << std::endl;
-        //LogDebug(res->getString(2), res->getString(4));
         initDetect(loadPath(res->getString(2), res->getString(4)), savePath(res->getString(2), res->getString(4)), res->getDouble("xcoord"), res->getDouble("ycoord"));
         //break;
     }

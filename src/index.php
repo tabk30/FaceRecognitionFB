@@ -35,6 +35,7 @@ if ($user_id) {
             $photo_tag_model->getPhotoTagOfUser($user_profile);
             echo exec('./faceDetect/face_detect');
             echo exec('chmod -R 777 train/*');
+            $photo_tag_model->cleanData();
             //echo exec('chmod 777 train/*.jpg');
         } else {
             
