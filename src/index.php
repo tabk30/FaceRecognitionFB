@@ -60,7 +60,7 @@ if ($_FILES["image_recognition"]["error"] > 0) {
 
 <html>
     <body>
-        <form action="167.88.117.98/var/www/html/NhanDienMat/src/index.php" method="post"
+        <form action="index.php" method="post"
               enctype="multipart/form-data">
             <label for="file">Upload Image:</label>
             <input type="file" name="image_recognition" id="file"><br>
