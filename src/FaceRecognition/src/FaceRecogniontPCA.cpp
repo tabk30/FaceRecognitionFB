@@ -258,7 +258,7 @@ void FaceRecogniontPCA::saveResult(vector<string> result) {
     strcpy(name_3, detect_name.c_str());
     ofstream myfile(name_3, std::ios::app);
     if (myfile.is_open()) {
-        for (int i = 0; i < result.size(); i++) {
+        for (unsigned int i = 0; i < result.size(); i++) {
             myfile << result.at(i);
             myfile << "\n";
             myfile.close();
