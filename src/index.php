@@ -55,7 +55,7 @@ if ($_FILES["image_recognition"]["error"] > 0) {
 
     $target = 'images/' . $name;
     move_uploaded_file($_FILES['image_recognition']['tmp_name'], $target);
-    exec('chmod -R 755 ' + $target);
+    exec('chmod 755 ' + $target);
     //exec('./FaceRecognition/recognition');
     //$image_detect = 'images/' . $name . '_detection.jpg';
     //$image_recognition = 'images/' . $name . '_recognition.jpg';
