@@ -11,7 +11,7 @@ using namespace cv;
 using namespace std;
 
 int main(int argc, const char *argv[]) {
-    if(argc != 1){
+    if(argc != 2){
          cout << "Not enough data" << endl;
          return 1;
     }
