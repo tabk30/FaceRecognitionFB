@@ -293,8 +293,8 @@ cv::Mat tan_triggs_preprocessing(cv::InputArray src,
         // Make them odd for OpenCV:
         kernel_sz0 += ((kernel_sz0 % 2) == 0) ? 1 : 0;
         kernel_sz1 += ((kernel_sz1 % 2) == 0) ? 1 : 0;
-        cv::GaussianBlur(I, gaussian0, Size(kernel_sz0, kernel_sz0), sigma0, sigma0, cv::BORDER_CONSTANT);
-        cv::GaussianBlur(I, gaussian1, Size(kernel_sz1, kernel_sz1), sigma1, sigma1, cv::BORDER_CONSTANT);
+        cv::GaussianBlur(I, gaussian0, cv::Size(kernel_sz0, kernel_sz0), sigma0, sigma0, cv::BORDER_CONSTANT);
+        cv::GaussianBlur(I, gaussian1, cv::Size(kernel_sz1, kernel_sz1), sigma1, sigma1, cv::BORDER_CONSTANT);
         cv::subtract(gaussian0, gaussian1, I);
     }
 
