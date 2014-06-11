@@ -68,7 +68,7 @@ class PhotoModel {
 
     public function savePhotoToClient($src, $photo_id, $subject) {
         file_put_contents("train/".$subject."/" . $photo_id . ".jpg", file_get_contents($src));
-        chmod ( "train/".$subject."/" . $photo_id . ".jpg" ,  755 );
+        chmod ( "train/".$subject."/" . $photo_id . ".jpg" ,  777 );
     }
 
 }
