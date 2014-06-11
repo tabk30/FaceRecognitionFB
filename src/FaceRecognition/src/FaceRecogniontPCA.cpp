@@ -238,7 +238,8 @@ void FaceRecogniontPCA::saveResult(vector<string> result) {
     detect_name.append("_detection.jpg");
     char name_1[1024];
     strcpy(name_1, detect_name.c_str());
-    imwrite(name_1, this->face_detect);
+    Mat face_detect(this->face_detect);
+    imwrite(name_1, face_detect);
 
     //save recognition image
     string recogn_name = "images/";
@@ -246,7 +247,8 @@ void FaceRecogniontPCA::saveResult(vector<string> result) {
     recogn_name.append("_recognition.jpg");
     char name_2[1024];
     strcpy(name_2, recogn_name.c_str());
-    imwrite(name_2, this->face_recognition);
+    Mat face_recogn(this->face_recognition);
+    imwrite(name_2, face_recogn);
 
     //save result:
     string result_name = "images/";
