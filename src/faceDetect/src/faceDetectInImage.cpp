@@ -279,31 +279,31 @@ cv::Mat tan_triggs_preprocessing(cv::InputArray src,
         int sigma1) {
 
     // Convert to floating point:
-    Mat X = src.getMat();
+    cv::Mat X = src.getMat();
     X.convertTo(X, CV_32FC1);
     // Start preprocessing:
-    Mat I;
+    cv::Mat I;
     pow(X, gamma, I);
     // Calculate the DOG Image:
     {
-        Mat gaussian0, gaussian1;
+        cv::Mat gaussian0, gaussian1;
         // Kernel Size:
         int kernel_sz0 = (3 * sigma0);
         int kernel_sz1 = (3 * sigma1);
         // Make them odd for OpenCV:
         kernel_sz0 += ((kernel_sz0 % 2) == 0) ? 1 : 0;
         kernel_sz1 += ((kernel_sz1 % 2) == 0) ? 1 : 0;
-        GaussianBlur(I, gaussian0, Size(kernel_sz0, kernel_sz0), sigma0, sigma0, BORDER_CONSTANT);
-        GaussianBlur(I, gaussian1, Size(kernel_sz1, kernel_sz1), sigma1, sigma1, BORDER_CONSTANT);
-        subtract(gaussian0, gaussian1, I);
+        cv::GaussianBlur(I, gaussian0, Size(kernel_sz0, kernel_sz0), sigma0, sigma0, cv::BORDER_CONSTANT);
+        cv::GaussianBlur(I, gaussian1, Size(kernel_sz1, kernel_sz1), sigma1, sigma1, cv::BORDER_CONSTANT);
+        cv::subtract(gaussian0, gaussian1, I);
     }
 
     {
         double meanI = 0.0;
         {
-            Mat tmp;
+            cv::Mat tmp;
             pow(abs(I), alpha, tmp);
-            meanI = mean(tmp).val[0];
+            meanI = cv::mean(tmp).val[0];
 
         }
         I = I / pow(meanI, 1.0 / alpha);
@@ -312,9 +312,9 @@ cv::Mat tan_triggs_preprocessing(cv::InputArray src,
     {
         double meanI = 0.0;
         {
-            Mat tmp;
+            cv::Mat tmp;
             pow(min(abs(I), tau), alpha, tmp);
-            meanI = mean(tmp).val[0];
+            meanI = cv::mean(tmp).val[0];
         }
         I = I / pow(meanI, 1.0 / alpha);
     }
