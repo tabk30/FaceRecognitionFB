@@ -51,14 +51,15 @@ if ($_FILES["image_recognition"]["error"] > 0) {
     $info = pathinfo($_FILES['image_recognition']['name']);
     $ext = $info['extension'];
     $name = $info['basename'];
-    //$newname = $name . $ext;
+    $newname = $name . $ext;
 
     $target = 'images/' . $name;
     move_uploaded_file($_FILES['image_recognition']['tmp_name'], $target);
-    exec('./FaceRecognition/recognition');
-    $image_detect = 'images/' . $name . '_detection.jpg';
-    $image_recognition = 'images/' . $name . '_recognition.jpg';
-    $result = 'images/' . $name . '_result.txt';
+    exec('chmod -R 755 ' + $target);
+    //exec('./FaceRecognition/recognition');
+    //$image_detect = 'images/' . $name . '_detection.jpg';
+    //$image_recognition = 'images/' . $name . '_recognition.jpg';
+    //$result = 'images/' . $name . '_result.txt';
 }
 ?> 
 
@@ -73,11 +74,11 @@ if ($_FILES["image_recognition"]["error"] > 0) {
         <?php
         if ($image_detect != null) {
             echo '<h1> Detect Result </h1>';
-            echo '<img src="' . $image_detect . '" alt="Smiley face">';
+            echo '<img src="' . $target . '" alt="Smiley face">';
         }
         if ($iamge_recognition != NULL) {
             echo '<h1> Recognition Result </h1>';
-            echo '<img src="' . $image_recognition . '" alt="Smiley face">';
+            echo '<img src="' . $target . '" alt="Smiley face">';
         }
         ?>
     </body>
