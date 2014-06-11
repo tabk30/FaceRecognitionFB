@@ -14,7 +14,7 @@ EXECUTABLE = face_detect
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(OBJECTS) -lmysqlcppconn $(LDFLAGS) -o $@
+	$(CC) $(OBJECTS) -lmysqlcppconn -lopencv_core -lopencv_imgproc -lopencv_highgui  $(LDFLAGS) -o $@
 
 .cpp.o:
 	$(CC) $(CFLAGS) $(CURDIR)/$< -o $@
