@@ -52,7 +52,6 @@ class UserModel {
         while ($row = mysql_fetch_array($result)) {
             $all_user[] = $row;
         }
-        var_dump($all_user);
         return $all_user;
     }
 
