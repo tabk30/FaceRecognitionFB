@@ -239,8 +239,8 @@ void FaceRecogniontPCA::saveResult(vector<string> result) {
     cout << "detect: " << detect_name << endl;
     char name_1[1024];
     strcpy(name_1, detect_name.c_str());
-    Mat face_detect(this->face_detect);
-    imwrite(name_1, face_detect);
+    Mat face_det(this->face_detect);
+    imwrite(name_1, face_det);
 
     //save recognition image
     string recogn_name = "images/";

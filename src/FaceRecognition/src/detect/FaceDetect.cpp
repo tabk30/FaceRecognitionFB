@@ -89,6 +89,8 @@ void FaceDetect::detect_and_draw(IplImage* img) {
             result = crop(img, r);
             this->face_list.push_back(*result);
         }
+    }else {
+        cout << "NO load cascade_face" << endl;
     }
     this->image_result = face_tag;
 
