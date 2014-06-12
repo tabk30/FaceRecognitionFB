@@ -91,11 +91,11 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
         <?php
         if ($image_detect != null) {
             echo '<h1> Detect Result </h1>';
-            echo '<img src="' . $target . '" alt="Detect Result">';
+            echo '<img src="' . $image_detect . '" alt="Detect Result">';
         }
         if ($image_recognition != NULL) {
             echo '<h1> Recognition Result </h1>';
-            echo '<img src="' . $result . '" alt="Recognition Result">';
+            echo '<img src="' . $image_recognition . '" alt="Recognition Result">';
         }
         if ($result != NULL) {
             echo '<h1>' . $result_display . '</h1>';
