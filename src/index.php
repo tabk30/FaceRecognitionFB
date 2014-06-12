@@ -3,10 +3,6 @@ require_once ('fb/facebook.php');
 require_once ('model/PhotoTagModel.php');
 require_once ('model/UserModel.php');
 
-function getUserName($user_id){
-    $user_model = new UserModel();
-    return $user_model->getUserName($user_id); 
-}
 $fbconfig['appUrl'] = "The full url of your app on Facebook goes here";
 
 //Create An instance of our Facebook Application .
@@ -17,14 +13,15 @@ $facebook = new Facebook(array(
         ));
 $user_id = $facebook->getUser();
 $user_model = new UserModel();
+$user_list = $user_model->getAllUser();
 if ($user_id) {
     try {
         $user_profile = $facebook->api('/me');
         if ($user_model->checkUserExit($user_profile["id"]) == 0) {
             $user_model->addUserInfo($user_profile);
+            
             //Create folder to save image data:
             mkdir("train/" . $user_profile["id"]);
-
             $facebook->setExtendedAccessToken();
             $access_token = $facebook->getAccessToken();
             $photo_tag_model = new PhotoTagModel($access_token);

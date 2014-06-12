@@ -45,6 +45,16 @@ class UserModel {
         }
         return 0;
     }
+    
+    public function getAllUser(){
+        $result = mysql_query("SELECT * FROM user_frofile", $this->con);
+        $all_user = array();
+        while ($row = mysql_fetch_array($result)) {
+            $all_user[] = $row;
+        }
+        var_dump($all_user);
+        return $all_user;
+    }
 
     public function getUserName($user_id) {
         $result = mysql_query("SELECT * FROM user_frofile WHERE uid='" . $user_id . "'", $this->con);
