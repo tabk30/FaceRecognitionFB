@@ -9,6 +9,7 @@ function getUserName($user_id, $user_list){
         echo '<br/>';
         echo $user["uid"] . "--" . $user_id . '<br/>';
         if (strcmp($user["uid"], $user_id) == 0) {
+            echo 'get User name<br/>';
             return $user['name'];
         }
     }
@@ -82,7 +83,6 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
         }
         fclose($fh);
         $result_display = $result_display . '</ol>';
-        echo $result_display . '<br/>';
     }
 }
 ?> 
