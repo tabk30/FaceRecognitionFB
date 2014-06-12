@@ -67,7 +67,7 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
         $result = 'images/' . $_FILES['image_recognition']['name'] . '_result.txt';
         echo $result . '<br/>';
         //read result:
-        $fh = fopen('filename.txt', 'r');
+        $fh = fopen($result, 'r');
         $result_display = '<ol>';
         while ($line = fgets($fh)) {
             $result_display = '<li>';
