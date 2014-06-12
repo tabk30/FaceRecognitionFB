@@ -46,32 +46,34 @@ if ($user_id) {
 $image_detect = NULL;
 $image_recognition = NULL;
 $result = NULL;
-if ($_FILES["image_recognition"]["error"] > 0) {
+if (($_FILES["image_recognition"]["error"] > 0)) {
     echo "Error: " . $_FILES["image_recognition"]["error"] . "<br>";
 } else {
-    $info = pathinfo($_FILES['image_recognition']['name']);
-    $ext = $info['extension'];
-    $name = $info['basename'];
-    //$newname = $name . $ext;
+    if (file_exists($_FILES['image_recognition']['names'])) {
+        $info = pathinfo($_FILES['image_recognition']['name']);
+        $ext = $info['extension'];
+        $name = $info['basename'];
+        //$newname = $name . $ext;
 
-    $target = 'images/' . $name;
-    move_uploaded_file($_FILES['image_recognition']['tmp_name'], $target);
-    echo exec('chmod -R 755 images/*');
-    echo './FaceRecognition/recognition ' . $target . ' ' . $_FILES['image_recognition']['name'] ;
-    echo exec('./FaceRecognition/recognition ' . $target . ' ' . $_FILES['image_recognition']['name']);
-    $image_detect = 'images/' . $_FILES['image_recognition']['name'] . '_detection.jpg';
-    $image_recognition = 'images/' . $_FILES['image_recognition']['name'] . '_recognition.jpg';
-    $result = 'images/' . $_FILES['image_recognition']['name'] . '_result.txt';
-    //read result:
-    $fh = fopen('filename.txt', 'r');
-    $result_display = '<ol>';
-    while ($line = fgets($fh)) {
-        $result_display = '<li>';
-        $result_display = $line;
-        $result_display = '</li>';
+        $target = 'images/' . $name;
+        move_uploaded_file($_FILES['image_recognition']['tmp_name'], $target);
+        echo exec('chmod -R 755 images/*');
+        echo './FaceRecognition/recognition ' . $target . ' ' . $_FILES['image_recognition']['name'];
+        echo exec('./FaceRecognition/recognition ' . $target . ' ' . $_FILES['image_recognition']['name']);
+        $image_detect = 'images/' . $_FILES['image_recognition']['name'] . '_detection.jpg';
+        $image_recognition = 'images/' . $_FILES['image_recognition']['name'] . '_recognition.jpg';
+        $result = 'images/' . $_FILES['image_recognition']['name'] . '_result.txt';
+        //read result:
+        $fh = fopen('filename.txt', 'r');
+        $result_display = '<ol>';
+        while ($line = fgets($fh)) {
+            $result_display = '<li>';
+            $result_display = $line;
+            $result_display = '</li>';
+        }
+        fclose($fh);
+        $result_display = $result_display + '</ol>';
     }
-    fclose($fh);
-    $result_display = $result_display + '</ol>';
 }
 ?> 
 
