@@ -58,11 +58,14 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
         $target = 'images/' . $name;
         move_uploaded_file($_FILES['image_recognition']['tmp_name'], $target);
         echo exec('chmod -R 755 images/*');
-        echo './FaceRecognition/recognition ' . $target . ' ' . $_FILES['image_recognition']['name'];
-        echo exec('./FaceRecognition/recognition ' . $target . ' ' . $_FILES['image_recognition']['name']);
+        echo './FaceRecognition/recognition ' . $target . ' ' . $_FILES['image_recognition']['name'] . ' <br/>';
+        echo exec('./FaceRecognition/recognition ' . $target . ' ' . $_FILES['image_recognition']['name']) . '<br/>';
         $image_detect = 'images/' . $_FILES['image_recognition']['name'] . '_detection.jpg';
+        echo $image_detect . '<br/>';
         $image_recognition = 'images/' . $_FILES['image_recognition']['name'] . '_recognition.jpg';
+        echo $image_recognition . '<br/>';
         $result = 'images/' . $_FILES['image_recognition']['name'] . '_result.txt';
+        echo $result . '<br/>';
         //read result:
         $fh = fopen('filename.txt', 'r');
         $result_display = '<ol>';
