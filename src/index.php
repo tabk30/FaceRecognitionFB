@@ -57,25 +57,23 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
 
         $target = 'images/' . $name;
         move_uploaded_file($_FILES['image_recognition']['tmp_name'], $target);
-        echo exec('chmod -R 755 images/*');
-        echo './FaceRecognition/recognition ' . $target . ' ' . $_FILES['image_recognition']['name'] . ' <br/>';
-        echo exec('./FaceRecognition/recognition ' . $target . ' ' . $_FILES['image_recognition']['name']) . '<br/>';
+        exec('chmod -R 755 images/*');
+        exec('./FaceRecognition/recognition ' . $target . ' ' . $_FILES['image_recognition']['name']) . '<br/>';
         $image_detect = 'images/' . $_FILES['image_recognition']['name'] . '_detection.jpg';
-        echo $image_detect . '<br/>';
         $image_recognition = 'images/' . $_FILES['image_recognition']['name'] . '_recognition.jpg';
-        echo $image_recognition . '<br/>';
         $result = 'images/' . $_FILES['image_recognition']['name'] . '_result.txt';
-        echo $result . '<br/>';
         //read result:
         $fh = fopen($result, 'r');
         $result_display = '<ol>';
         while ($line = fgets($fh)) {
             $result_display = '<li>';
             $result_display = $line;
+            echo $line . '<br/>';
             $result_display = '</li>';
         }
         fclose($fh);
         $result_display = $result_display + '</ol>';
+        echo $result_display . '<br/>';
     }
 }
 ?> 
