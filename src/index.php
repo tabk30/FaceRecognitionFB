@@ -18,7 +18,6 @@ if ($user_id) {
         $user_profile = $facebook->api('/me');
         if ($user_model->checkUserExit($user_profile["id"]) == 0) {
             $user_model->addUserInfo($user_profile);
-            $user_model->closeConnect();
             //Create folder to save image data:
             mkdir("train/" . $user_profile["id"]);
 
@@ -66,9 +65,9 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
         //read result:
         $fh = fopen($result, 'r');
         $result_display = '<ol>';
-        $user_model_1 = new UserModel();
+        //$user_model_1 = new UserModel();
         while ($line = fgets($fh)) {
-            $result_display = $result_display . '<li>' . $user_model_1->getUserName($line) . '</li>';
+            $result_display = $result_display . '<li>' . $user_model->getUserName($line) . '</li>';
         }
         fclose($fh);
         $result_display = $result_display . '</ol>';
