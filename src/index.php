@@ -7,7 +7,7 @@ function getUserName($user_id, $user_list){
     var_dump($user_list);
     foreach ($user_list as $user){
         echo '<br/>';
-        echo $user["uid"] . "--" . $user_id . '<br/>';
+        echo strlen($user["uid"]) . "--" . strlen($user_id) . '<br/>';
         if (strcmp($user["uid"], $user_id) == 0) {
             echo 'get User name<br/>';
             return $user['name'];
