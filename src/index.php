@@ -66,12 +66,10 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
         $fh = fopen($result, 'r');
         $result_display = '<ol>';
         while ($line = fgets($fh)) {
-            $result_display = $result_display . '<li>';
-            $result_display = $result_display . $line;
-            $result_display = $result_display .'</li>';
+            $result_display = $result_display . '<li>' . $line . '</li>';
         }
         fclose($fh);
-        $result_display = $result_display + '</ol>';
+        $result_display = $result_display . '</ol>';
         echo $result_display . '<br/>';
     }
 }
