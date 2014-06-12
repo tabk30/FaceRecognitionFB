@@ -89,7 +89,7 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
               enctype="multipart/form-data">
             <label for="file">Upload ảnh muốn nhận diện:</label>
             <input type="file" name="image_recognition" id="file"><br>
-            <input type="submit" name="Nhận dạng" value="Submit">
+            <input type="submit" name="Nhận dạng" value="Nhận dạng">
         </form>
         <?php
 //        if ($image_detect != null) {
