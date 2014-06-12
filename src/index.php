@@ -83,6 +83,8 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
 
 <html>
     <body>
+        <h1>ĐỒ ÁN NHẬN DẠNG MẶT TRÊN FACEBOOK</h1>
+        <h3>Sinh viên thực hiện: Phạm Tuấn Anh AS1-K54 Việt Nhật</h3>
         <form action="index.php" method="post"
               enctype="multipart/form-data">
             <label for="file">Upload Image:</label>
