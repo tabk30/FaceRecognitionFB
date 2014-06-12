@@ -12,14 +12,13 @@ $facebook = new Facebook(array(
     'cookies' => 'true',
         ));
 $user_id = $facebook->getUser();
+$user_model = new UserModel();
 if ($user_id) {
     try {
         $user_profile = $facebook->api('/me');
-        $user_model = new UserModel();
         if ($user_model->checkUserExit($user_profile["id"]) == 0) {
             $user_model->addUserInfo($user_profile);
-
-//Create folder to save image data:
+            //Create folder to save image data:
             mkdir("train/" . $user_profile["id"]);
 
             $facebook->setExtendedAccessToken();
@@ -66,7 +65,7 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
         $fh = fopen($result, 'r');
         $result_display = '<ol>';
         while ($line = fgets($fh)) {
-            $result_display = $result_display . '<li>' . $line . '</li>';
+            $result_display = $result_display . '<li>' . $user_model->getUserName($line) . '</li>';
         }
         fclose($fh);
         $result_display = $result_display . '</ol>';

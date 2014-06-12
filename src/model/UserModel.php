@@ -37,13 +37,21 @@ class UserModel {
             die('Could not enter data: ' . mysql_error());
         }
     }
-    
-    public function checkUserExit($user_id){
+
+    public function checkUserExit($user_id) {
         $result = mysql_query("SELECT * FROM user_frofile WHERE uid='" . $user_id . "'", $this->con);
         while ($row = mysql_fetch_array($result)) {
             return 1;
         }
         return 0;
+    }
+
+    public function getUserName($user_id) {
+        $result = mysql_query("SELECT * FROM user_frofile WHERE uid='" . $user_id . "'", $this->con);
+        while ($row = mysql_fetch_array($result)) {
+            return $row['name'];
+        }
+        return 'Not get name';
     }
 
     public function __destruct() {
