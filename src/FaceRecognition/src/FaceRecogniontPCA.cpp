@@ -233,14 +233,14 @@ int FaceRecogniontPCA::checkExit(vector<string> result, string label_temp) {
 
 void FaceRecogniontPCA::saveResult(vector<string> result) {
     //save detect image:
-//    string detect_name = "images/";
-//    detect_name.append(this->file_name);
-//    detect_name.append("_detection.jpg");
-//    cout << "detect: " << detect_name << endl;
-//    char name_1[1024];
-//    strcpy(name_1, detect_name.c_str());
-//    Mat face_det(this->face_detect);
-//    imwrite(name_1, face_det);
+    string detect_name = "images/";
+    detect_name.append(this->file_name);
+    detect_name.append("_detection.jpg");
+    cout << "detect: " << detect_name << endl;
+    char name_1[1024];
+    strcpy(name_1, detect_name.c_str());
+    Mat face_det(this->face_detect);
+    imwrite(name_1, face_det);
 
     //save recognition image
     string recogn_name = "images/";
@@ -257,7 +257,7 @@ void FaceRecogniontPCA::saveResult(vector<string> result) {
     result_name.append(this->file_name);
     result_name.append("_result.txt");
     char name_3[1024];
-    strcpy(name_3, detect_name.c_str());
+    strcpy(name_3, result_name.c_str());
     ofstream myfile(name_3, std::ios::out);
     if (myfile.is_open()) {
         for (unsigned int i = 0; i < result.size(); i++) {
