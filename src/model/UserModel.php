@@ -53,6 +53,10 @@ class UserModel {
         var_dump($row);
         return $row['name'];
     }
+    
+    public function closeConnect(){
+        mysql_close($this->con);
+    }
 
     public function __destruct() {
         mysql_close($this->con);
