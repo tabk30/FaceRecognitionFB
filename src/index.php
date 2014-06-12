@@ -58,12 +58,10 @@ $result = NULL;
 if (($_FILES["image_recognition"]["error"] > 0)) {
     echo "Error: " . $_FILES["image_recognition"]["error"] . "<br>";
 } else {
-    if (is_uploaded_file($_FILES['image_recognition']) && file_exists($this->file['image_recognition'])) {
+    if (!empty($_FILES['image_recognition'])) {
         $info = pathinfo($_FILES['image_recognition']['name']);
         $ext = $info['extension'];
         $name = $info['basename'];
-        //$newname = $name . $ext;
-
         $target = 'images/' . $name;
         move_uploaded_file($_FILES['image_recognition']['tmp_name'], $target);
         exec('chmod -R 755 images/*');
