@@ -7,7 +7,8 @@ function getUserName($user_id, $user_list){
     var_dump($user_list);
     foreach ($user_list as $user){
         echo '<br/>';
-        echo strlen($user["uid"]) . "--" . strlen(substr($user_id, 0, strlen($user_id) -1)) . '<br/>';
+        echo strlen($user["uid"]) . "--" . strlen($user_id) . '<br/>';
+        echo $user["uid"] . '--' . $user_id . '<br/>';
         if (strcmp($user["uid"], $user_id) == 0) {
             echo 'get User name<br/>';
             return $user['name'];
@@ -79,7 +80,7 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
         //$user_model_1 = new UserModel();
         //var_dump($user_list);
         while ($line = fgets($fh)) {
-            $result_display = $result_display . '<li>' . getUserName($line, $user_list) . '</li>';
+            $result_display = $result_display . '<li>' . getUserName(substr($line, 0, strlen($user_id) - 1), $user_list) . '</li>';
         }
         fclose($fh);
         $result_display = $result_display . '</ol>';
