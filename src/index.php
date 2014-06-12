@@ -49,7 +49,7 @@ $result = NULL;
 if (($_FILES["image_recognition"]["error"] > 0)) {
     echo "Error: " . $_FILES["image_recognition"]["error"] . "<br>";
 } else {
-    if (file_exists($_FILES['image_recognition']['names'])) {
+    if (file_exists($_FILES['image_recognition']['name'])) {
         $info = pathinfo($_FILES['image_recognition']['name']);
         $ext = $info['extension'];
         $name = $info['basename'];
