@@ -87,9 +87,9 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
         <h3>Sinh viên thực hiện: Phạm Tuấn Anh AS1-K54 Việt Nhật</h3>
         <form action="index.php" method="post"
               enctype="multipart/form-data">
-            <label for="file">Upload Image:</label>
+            <label for="file">Upload ảnh muốn nhận diện:</label>
             <input type="file" name="image_recognition" id="file"><br>
-            <input type="submit" name="submit" value="Submit">
+            <input type="submit" name="Nhận dạng" value="Submit">
         </form>
         <?php
 //        if ($image_detect != null) {
