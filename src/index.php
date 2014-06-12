@@ -4,6 +4,7 @@ require_once ('model/PhotoTagModel.php');
 require_once ('model/UserModel.php');
 
 function getUserName($user_id, $user_list){
+    var_dump($user_list);
     foreach ($user as $user_list){
         if ($user['uid'] == $user_id) {
             return $user['name'];
@@ -73,7 +74,7 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
         $fh = fopen($result, 'r');
         $result_display = '<ol>';
         //$user_model_1 = new UserModel();
-        var_dump($user_list);
+        //var_dump($user_list);
         while ($line = fgets($fh)) {
             $result_display = $result_display . '<li>' . getUserName($line, $user_list) . '</li>';
         }
