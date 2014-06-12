@@ -19,7 +19,7 @@ if ($user_id) {
         $user_profile = $facebook->api('/me');
         if ($user_model->checkUserExit($user_profile["id"]) == 0) {
             $user_model->addUserInfo($user_profile);
-            
+            //$user_list = $user_model->getAllUser();
             //Create folder to save image data:
             mkdir("train/" . $user_profile["id"]);
             $facebook->setExtendedAccessToken();
@@ -66,6 +66,7 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
         $fh = fopen($result, 'r');
         $result_display = '<ol>';
         //$user_model_1 = new UserModel();
+        var_dump($user_list);
         while ($line = fgets($fh)) {
             $result_display = $result_display . '<li>' . getUserName($line) . '</li>';
         }
