@@ -64,6 +64,7 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
         //read result:
         $fh = fopen($result, 'r');
         $result_display = '<ol>';
+        $user_model = new UserModel();
         while ($line = fgets($fh)) {
             $result_display = $result_display . '<li>' . $user_model->getUserName($line) . '</li>';
         }
