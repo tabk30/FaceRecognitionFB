@@ -48,7 +48,7 @@ class UserModel {
 
     public function getUserName($user_id) {
         $result = mysql_query("SELECT * FROM user_frofile WHERE uid='" . $user_id . "'", $this->con);
-        echo $result . '<br/>';
+        echo "SELECT * FROM user_frofile WHERE uid='" . $user_id . "'" . '<br/>';
         while ($row = mysql_fetch_array($result)) {
             return $row['name'];
         }
