@@ -4,13 +4,8 @@ require_once ('model/PhotoTagModel.php');
 require_once ('model/UserModel.php');
 
 function getUserName($user_id, $user_list){
-    var_dump($user_list);
     foreach ($user_list as $user){
-        echo '<br/>';
-        echo strlen($user["uid"]) . "--" . strlen($user_id) . '<br/>';
-        echo $user["uid"] . '--' . $user_id . '<br/>';
         if (strcmp($user["uid"], $user_id) == 0) {
-            echo 'get User name<br/>';
             return $user['name'];
         }
     }
@@ -41,6 +36,8 @@ if ($user_id) {
             exec('./faceDetect/face_detect');
             exec('chmod -R 777 train/*');
             $photo_tag_model->cleanData();
+            exec('./PCAPerform/pca');
+            exec('chmod -R 777 data/*');
         }
 
 //Get foto and save to server
@@ -61,7 +58,7 @@ $result = NULL;
 if (($_FILES["image_recognition"]["error"] > 0)) {
     echo "Error: " . $_FILES["image_recognition"]["error"] . "<br>";
 } else {
-    if (!is_uploaded_file($_FILES['myfile']['tmp_name'])) {
+    if (is_uploaded_file($_FILES['image_recognition']) && file_exists($this->file['image_recognition'])) {
         $info = pathinfo($_FILES['image_recognition']['name']);
         $ext = $info['extension'];
         $name = $info['basename'];
@@ -77,8 +74,6 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
         //read result:
         $fh = fopen($result, 'r');
         $result_display = '<ol>';
-        //$user_model_1 = new UserModel();
-        //var_dump($user_list);
         while ($line = fgets($fh)) {
             $result_display = $result_display . '<li>' . getUserName(substr($line, 0, strlen($line) - 1), $user_list) . '</li>';
         }
@@ -97,10 +92,10 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
             <input type="submit" name="submit" value="Submit">
         </form>
         <?php
-        if ($image_detect != null) {
-            echo '<h1> Detect Result </h1>';
-            echo '<img src="' . $image_detect . '" alt="Detect Result">';
-        }
+//        if ($image_detect != null) {
+//            echo '<h1> Detect Result </h1>';
+//            echo '<img src="' . $image_detect . '" alt="Detect Result">';
+//        }
         if ($image_recognition != NULL) {
             echo '<h1> Recognition Result </h1>';
             echo '<img src="' . $image_recognition . '" alt="Recognition Result">';
