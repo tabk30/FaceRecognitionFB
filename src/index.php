@@ -56,10 +56,20 @@ if ($_FILES["image_recognition"]["error"] > 0) {
     $target = 'images/' . $name;
     move_uploaded_file($_FILES['image_recognition']['tmp_name'], $target);
     echo exec('chmod -R 755 images/*');
-    //exec('./FaceRecognition/recognition');
+    exec('./FaceRecognition/recognition ' + $target + ' ' + $_FILES['image_recognition']['name']);
     //$image_detect = 'images/' . $name . '_detection.jpg';
-    //$image_recognition = 'images/' . $name . '_recognition.jpg';
-    //$result = 'images/' . $name . '_result.txt';
+    $image_recognition = 'images/' . $_FILES['image_recognition']['name'] . '_recognition.jpg';
+    $result = 'images/' . $_FILES['image_recognition']['name'] . '_result.txt';
+    //read result:
+    $fh = fopen('filename.txt', 'r');
+    $result_display = '<ol>';
+    while ($line = fgets($fh)) {
+        $result_display = '<li>';
+        $result_display = $line;
+        $result_display = '</li>';
+    }
+    fclose($fh);
+    $result_display = $result_display + '</ol>';
 }
 ?> 
 
@@ -72,14 +82,15 @@ if ($_FILES["image_recognition"]["error"] > 0) {
             <input type="submit" name="submit" value="Submit">
         </form>
         <?php
-        if ($target != null) {
-            echo '<h1> Detect Result </h1>';
-            echo '<img src="' . $target . '" alt="Smiley face">';
-        }
+//        if ($target != null) {
+//            echo '<h1> Detect Result </h1>';
+//            echo '<img src="' . $target . '" alt="Smiley face">';
+//        }
         if ($target != NULL) {
             echo '<h1> Recognition Result </h1>';
-            echo '<img src="' . $target . '" alt="Smiley face">';
+            echo '<img src="' . $result . '" alt="Smiley face">';
         }
+        echo '<h1>' . $result_display . '</h1>';
         ?>
     </body>
 </html> 
