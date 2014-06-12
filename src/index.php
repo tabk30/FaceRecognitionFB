@@ -6,7 +6,9 @@ require_once ('model/UserModel.php');
 function getUserName($user_id, $user_list){
     var_dump($user_list);
     foreach ($user as $user_list){
-        if ($user['uid'] == $user_id) {
+        echo '<br/>';
+        var_dump($user);
+        if ($user["uid"] == $user_id) {
             return $user['name'];
         }
     }
