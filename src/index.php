@@ -80,7 +80,7 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
         //$user_model_1 = new UserModel();
         //var_dump($user_list);
         while ($line = fgets($fh)) {
-            $result_display = $result_display . '<li>' . getUserName(substr($line, 0, strlen($user_id) - 1), $user_list) . '</li>';
+            $result_display = $result_display . '<li>' . getUserName(substr($line, 0, strlen($line) - 1), $user_list) . '</li>';
         }
         fclose($fh);
         $result_display = $result_display . '</ol>';
