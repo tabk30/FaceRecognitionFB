@@ -41,6 +41,7 @@ class UserModel {
     public function checkUserExit($user_id) {
         $result = mysql_query("SELECT * FROM user_frofile WHERE uid='" . $user_id . "'", $this->con);
         while ($row = mysql_fetch_array($result)) {
+            var_dump($row);
             return 1;
         }
         return 0;
