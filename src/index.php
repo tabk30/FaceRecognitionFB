@@ -3,6 +3,10 @@ require_once ('fb/facebook.php');
 require_once ('model/PhotoTagModel.php');
 require_once ('model/UserModel.php');
 
+function getUserName($user_id){
+    $user_model = new UserModel();
+    return $user_model->getUserName($user_id); 
+}
 $fbconfig['appUrl'] = "The full url of your app on Facebook goes here";
 
 //Create An instance of our Facebook Application .
@@ -28,7 +32,6 @@ if ($user_id) {
             exec('./faceDetect/face_detect');
             exec('chmod -R 777 train/*');
             $photo_tag_model->cleanData();
-            
         }
 
 //Get foto and save to server
@@ -67,7 +70,7 @@ if (($_FILES["image_recognition"]["error"] > 0)) {
         $result_display = '<ol>';
         //$user_model_1 = new UserModel();
         while ($line = fgets($fh)) {
-            $result_display = $result_display . '<li>' . $user_model->getUserName($line) . '</li>';
+            $result_display = $result_display . '<li>' . getUserName($line) . '</li>';
         }
         fclose($fh);
         $result_display = $result_display . '</ol>';
