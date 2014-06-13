@@ -264,8 +264,8 @@ void FaceRecogniontPCA::saveResult(vector<string> result) {
             myfile << result.at(i);
             cout << "result: " << result.at(i) << endl;
             myfile << "\n";
-            myfile.close();
         }
+        myfile.close();
     } else cout << "Unable to open file" << endl;
-    
+
 }
